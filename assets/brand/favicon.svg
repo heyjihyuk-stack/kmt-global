@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- KMT Global 임시 파비콘: 4×4 도면 그리드 + 레드라인 리비전 칸 (SPEC §5, 정식 로고 확정 전) -->
+  <rect width="32" height="32" rx="6" fill="#FFFFFF"/>
+  <rect x="21.5" y="4.5" width="6" height="6" fill="#BF1019"/>
+  <path d="M4.5 4.5h23v23h-23zM10.25 4.5v23M16 4.5v23M21.75 4.5v23M4.5 10.25h23M4.5 16h23M4.5 21.75h23" fill="none" stroke="#0F1C2E" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>
