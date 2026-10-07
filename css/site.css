@@ -726,6 +726,16 @@ main > section:not(#hero),.ft{content-visibility:auto;contain-intrinsic-size:aut
 .proc__k,.mat-ed,.cert-form__badge,.nw-result__route,.mg__code,.tbl thead th,.st__label,.st-step__no,.st__cap,.st-mini__cap,.ft__copy{word-spacing:-.24em}
 .figcap__t,.tech__no span,.nw-result__route small{word-spacing:normal}
 
+/* FILM — 소개 영상 (SHEET 01 하단) */
+.film{display:grid;grid-template-columns:4fr 8fr;gap:24px 48px;align-items:center;margin:72px 0 8px;padding-top:40px;border-top:1px solid var(--line)}
+.film__k{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--muted);margin:0 0 12px}
+.film__title{font-size:clamp(22px,2.4vw,28px);line-height:1.3;font-weight:600;letter-spacing:-.015em;margin:0 0 12px}
+.film__desc{color:var(--ink-2);margin:0 0 8px}
+.film__note{font-size:14px;color:var(--muted);margin:0}
+.film__fig{margin:0}
+.film__video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--paper-2);border:1px solid var(--line-2);border-radius:var(--radius)}
+@media (max-width:960px){.film{grid-template-columns:1fr;margin-top:56px}}
+
 /* ==========================================================
    SECTION 4 · 책임 구조 (#structure) — dark sheet scrollytelling
    SPEC §3.3–3.4 · §6 row 4. Scoped to .st — merge into css/site.css as-is.
