@@ -162,16 +162,6 @@
     }, { threshold: 0.05 });
     ['contact', 'footer'].forEach(function (id) { var el = doc.getElementById(id); if (el) io.observe(el); });
 
-    var main = $('.mbar__main', bar), makers = doc.getElementById('makers'), mk = $('[data-maker-mail]');
-    if (!main || !makers || !mk) return;
-    var orig = { html: main.innerHTML, href: main.getAttribute('href') }, onMk = false;
-    new IntersectionObserver(function (ents) {
-      var on = ents[ents.length - 1].isIntersecting;
-      if (on === onMk) return;
-      onMk = on;
-      main.innerHTML = on ? '협력 제조사 등록 문의 <span aria-hidden="true">→</span>' : orig.html;
-      main.setAttribute('href', on ? mk.getAttribute('href') : orig.href);
-    }, { rootMargin: '0px 0px -35% 0px', threshold: 0 }).observe(makers);
   }
 
   /* ---------- 4 · 진입 reveal + FIG 라인 드로우 ---------- */
@@ -564,27 +554,6 @@
     });
   }
 
-  /* ---------- 12 · 협력 제조사 등록 문의 메일 ---------- */
-  function initMakerMail() {
-    var a = $('[data-maker-mail]');
-    if (!a) return;
-    var body = [
-      '안녕하세요, KMT Global 해외영업 담당자님.',
-      '협력 제조사 등록을 문의드립니다.',
-      '',
-      '■ 회사명:',
-      '■ 담당자 / 연락처:',
-      '■ 주요 품목:',
-      '■ 재질:',
-      '■ 주요 설비:',
-      '■ 보유 인증:',
-      '■ 회사 소재지:',
-      '',
-      '감사합니다.'
-    ].join('\r\n');
-    a.setAttribute('href', 'mailto:' + MAIL + '?subject=' + enc('[협력 제조사 등록 문의] (회사명)') + '&body=' + enc(body));
-  }
-
   /* ---------- 13 · 가로 스크롤 표: 실제로 넘칠 때만 안내 문구 + 오른쪽 페이드 ---------- */
   function initTables() {
     var wraps = $$('.tbl-wrap--wide');
@@ -672,7 +641,7 @@
     doc.body.appendChild(live);
     var ok = true;
     [initCV, initClock, initHeader, initMenu, initMbar, initReveal, initPins, initParts, initTables, initFolds,
-      initTabs, initProc, initFaq, initContact, initCopy, initMakerMail].forEach(function (fn) {
+      initTabs, initProc, initFaq, initContact, initCopy].forEach(function (fn) {
       try { fn(); } catch (e) { ok = false; if (window.console) console.error(e); }
     });
     KMTG.ready = ok;
