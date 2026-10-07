@@ -50,9 +50,9 @@
   var IATF = { Y: '필요', N: '필요 없음', U: '모름' };
 
   var RES = {
-    'R-A': { big: 'A', tag: '대형 후란', match: ['A'], card: '#nw-card-a',
-      title: '대형 후란 주물 — 관계사 케이엠텍㈜ 고령공장',
-      body: '중대형 주물에 맞는 경로입니다. 관계사 케이엠텍 고령공장의 최대 단중은 회주철 10 t, 구상흑연주철 5 t입니다.' },
+    'R-A': { big: 'A', tag: '후란 주조', match: ['A'], card: '#nw-card-a',
+      title: '후란 주조 — 관계사 케이엠텍㈜ 고령공장',
+      body: '단품·소량 다품종 주물에 맞는 경로로, 중소물부터 대형까지 다룹니다. 관계사 케이엠텍 고령공장의 최대 단중은 회주철 10 t, 구상흑연주철 5 t입니다.' },
     'R-B': { big: 'B', tag: '자동조형 양산', match: ['B'], card: '#nw-card-b',
       title: '자동조형 양산 — 협력 주물 생산처',
       body: '소형 부품의 반복 양산에 맞는 경로입니다. 협력 생산처에는 IATF 16949 인증 생산처가 포함되어 있으며, 인증은 해당 생산처 명의입니다.' },
@@ -72,9 +72,9 @@
   var NOTES = {
     'N-W5': ['+ 재질', '5 t을 넘는 단중은 회주철로 확인된 범위입니다. 관계사 케이엠텍 고령공장의 구상흑연주철 최대 단중은 5 t입니다.'],
     'N-C': ['+ 가공', '가공은 외부 가공 협력사에서 하고, 가공 공정 설계·공차 검토·가공 후 검사는 KMT Global이 맡습니다.'],
-    'N-IATF-B': ['+ IATF', 'IATF 16949 인증 생산처 경로로 검토합니다. 인증서 사본 제공은 해당 건에 한해 협의합니다.'],
+    'N-IATF-B': ['+ IATF', 'IATF 16949 인증 생산처 경로로 검토합니다. 인증 확인 방법은 해당 건에 한해 협의합니다.'],
     'N-IATF-A': ['+ IATF', 'IATF 16949 인증 생산처는 협력 주물 생산처(자동조형) 가운데 있습니다. 이 단중이 인증 생산처 범위에 드는지는 도면 검토 후 확인합니다.'],
-    'N-IATF-L': ['+ IATF', '대형 후란 경로(관계사 케이엠텍 고령공장)의 인증은 ISO 9001:2015이며, IATF 16949 인증 생산처가 아닙니다. IATF 16949 인증이 꼭 필요하시면 도면을 보내 주세요. 가능 여부를 검토해 회신합니다.'],
+    'N-IATF-L': ['+ IATF', '후란 주조 경로(관계사 케이엠텍 고령공장)의 인증은 ISO 9001:2015이며, IATF 16949 인증 생산처가 아닙니다. IATF 16949 인증이 꼭 필요하시면 도면을 보내 주세요. 가능 여부를 검토해 회신합니다.'],
     'N-M': ['+ 재질', '재질은 사용 조건과 도면을 보고 함께 정할 수 있습니다.']
   };
   var NOTE = '예비 안내 — 실제 경로와 가능 여부는 도면 검토 후 확인';
@@ -111,7 +111,7 @@
     if (s.mc === 'Y') { out.notes.push('N-C'); out.match.push('C'); }
     if (s.iatf === 'Y') {
       if (code === 'R-B') out.notes.push('N-IATF-B');
-      // 1 t 이상(대형 후란 경로)은 IATF 인증 생산처 범위가 아니라고 분명히 밝힌다
+      // 1 t 이상(후란 주조 경로)은 IATF 인증 생산처 범위가 아니라고 분명히 밝힌다
       else if (code === 'R-X2' || (code === 'R-A' && (w === 'w4' || w === 'w5'))) out.notes.push('N-IATF-L');
       else if (code === 'R-A' || code === 'R-AB') out.notes.push('N-IATF-A');
     }
@@ -158,7 +158,7 @@
       (mini ? ' aria-hidden="true" focusable="false"' : ' role="group" aria-labelledby="' + id + 't ' + id + 'd"') + '>');
     if (!mini) {
       o.push('<title id="' + id + 't">FIG. 14 — 역량 엔벨로프 (단중 × 연간 수량, 개념도)</title>');
-      o.push('<desc id="' + id + 'd">역량 개념도. 가로축 연간 수량, 세로축 단중. 대형 후란 영역은 관계사 케이엠텍 고령공장 기준 회주철 최대 10 t, 구상흑연주철 최대 5 t까지. ' +
+      o.push('<desc id="' + id + 'd">역량 개념도. 가로축 연간 수량, 세로축 단중. 후란 주조 영역은 관계사 케이엠텍 고령공장 기준 회주철 최대 10 t, 구상흑연주철 최대 5 t까지. ' +
         '자동조형 양산 영역은 소형·다량 쪽에 있으며 경계는 도면 검토 후 확인. 가공은 두 경로 모두에 연결됩니다. 같은 내용을 차트 아래 표로도 제공합니다.</desc>');
     }
 
@@ -185,7 +185,7 @@
     o.push('</g>');
 
     /* A 영역 */
-    var aLabel = 'A 대형 후란 — 관계사 케이엠텍 고령공장. 회주철 최대 10 t, 구상흑연주철 최대 5 t. 누르면 경로 카드로 이동';
+    var aLabel = 'A 후란 주조 — 관계사 케이엠텍 고령공장. 회주철 최대 10 t, 구상흑연주철 최대 5 t. 누르면 경로 카드로 이동';
     o.push('<a class="nw-reg nw-reg--a" data-reg="A" href="#nw-card-a"' + (mini ? ' tabindex="-1" aria-hidden="true"' : ' aria-label="' + esc(aLabel) + '"') + '>');
     o.push('<g clip-path="url(#' + id + 'ca)"><g mask="url(#' + id + 'ma)" class="nw-fade">' +
       '<rect class="nw-tint nw-tint--a" x="' + x0 + '" y="' + yt + '" width="' + r1(L.pw) + '" height="' + r1(L.ph) + '"/>' +
@@ -208,7 +208,7 @@
     var labA = [];
     if (!mini) {
       var ax = L.x(0.14), ay = place(ax, ax + (cp ? 110 : 190), cp ? 18 : 22, cp ? [LOG5T - 0.47, 2.55] : [3.16, 2.6]);
-      labA.push(text(ax, ay, 'nw-lbl', 'A  대형 후란'));
+      labA.push(text(ax, ay, 'nw-lbl', 'A  후란 주조'));
       labA.push(text(ax, ay + (cp ? 15 : 18), 'nw-lbl-sub', '관계사 케이엠텍 고령공장'));
     } else {
       labA.push(text(L.x(0.18), L.y(3.15), 'nw-lbl nw-lbl--mini', 'A'));

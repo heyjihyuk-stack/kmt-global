@@ -364,6 +364,8 @@ html:not(.js) .mg__field{display:none}
 .chip{min-height:40px;padding:0 14px;border:1px solid var(--line-2);border-radius:var(--radius-sm);background:var(--paper);font-size:14px;font-weight:500;color:var(--ink-2);transition:background-color .2s,border-color .2s,color .2s}
 .chip:hover{border-color:var(--ink-2);color:var(--ink)}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:disabled{opacity:.38;cursor:not-allowed;border-style:dashed}
+.chip:disabled:hover{border-color:var(--line-2);color:var(--ink-2)}
 .pf__count{margin-left:auto;font:500 13px/1 var(--font-label);color:var(--ink-2)}
 .pf__count b{font-weight:600;color:var(--ink);font-family:var(--font-mono);font-size:15px}
 html:not(.js) .pf{display:none}

@@ -246,11 +246,27 @@
     var count = $('[data-pf-count]'), empty = $('[data-pf-empty]');
     var st = { ind: '', route: '' };
 
+    function match(c, ind, route) {
+      var inds = ' ' + c.getAttribute('data-ind') + ' ';
+      return (!ind || inds.indexOf(' ' + ind + ' ') > -1) && (!route || c.getAttribute('data-route') === route);
+    }
+    function countFor(ind, route) { return cards.filter(function (c) { return match(c, ind, route); }).length; }
+    function syncChips() {
+      // 다른 축의 선택과 겹치는 품목이 없는 칩은 비활성화한다(빈 결과를 미리 막음)
+      $$('.chip', pf).forEach(function (b) {
+        var isInd = b.hasAttribute('data-pf-ind');
+        var v = b.getAttribute(isInd ? 'data-pf-ind' : 'data-pf-route');
+        var zero = !!v && (isInd ? countFor(v, st.route) : countFor(st.ind, v)) === 0;
+        b.disabled = zero;
+        if (zero) b.title = '선택한 ' + (isInd ? '생산 경로' : '산업') + '와 겹치는 예시 품목이 없습니다'; else b.removeAttribute('title');
+      });
+      $$('[data-pf-ind]', pf).forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-pf-ind') === st.ind ? 'true' : 'false'); });
+      $$('[data-pf-route]', pf).forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-pf-route') === st.route ? 'true' : 'false'); });
+    }
     function apply() {
       var n = 0;
       cards.forEach(function (c) {
-        var inds = ' ' + c.getAttribute('data-ind') + ' ';
-        var ok = (!st.ind || inds.indexOf(' ' + st.ind + ' ') > -1) && (!st.route || c.getAttribute('data-route') === st.route);
+        var ok = match(c, st.ind, st.route);
         c.hidden = !ok;
         if (ok) {
           n++;
@@ -260,15 +276,19 @@
       });
       count.textContent = n;
       empty.hidden = n > 0;
+      syncChips();
     }
     pf.addEventListener('click', function (e) {
       var b = e.target.closest('.chip');
-      if (!b) return;
-      var attr = b.hasAttribute('data-pf-ind') ? 'data-pf-ind' : 'data-pf-route';
-      st[attr === 'data-pf-ind' ? 'ind' : 'route'] = b.getAttribute(attr);
-      $$('[' + attr + ']', pf).forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      if (!b || b.disabled) return;
+      var isInd = b.hasAttribute('data-pf-ind');
+      var key = isInd ? 'ind' : 'route';
+      st[key] = b.getAttribute(isInd ? 'data-pf-ind' : 'data-pf-route');
+      // 고른 조건과 다른 축이 겹치지 않으면 다른 축을 '전체'로 되돌린다
+      if (!countFor(st.ind, st.route)) st[isInd ? 'route' : 'ind'] = '';
       apply();
     });
+    syncChips();
 
     /* 상세 패널 */
     var dlg = $('[data-pd]');
