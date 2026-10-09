@@ -1,2 +1,5 @@
+# KMT Global — 검색·AI 크롤러 모두 허용
 User-agent: *
-Disallow: /
+Allow: /
+
+Sitemap: https://kmtglobalco.com/sitemap.xml

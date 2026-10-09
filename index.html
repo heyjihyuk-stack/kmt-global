@@ -2,7 +2,6 @@
 <html lang="ko" class="no-js">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(h){h.className=h.className.replace(/\bno-js\b/,'js');addEventListener('load',function(){if(!(window.KMTG&&KMTG.ready))h.className=h.className.replace(/\bjs\b/,'no-js')})})(document.documentElement);</script>
 
@@ -10,14 +9,17 @@
 <meta name="description" content="KMT Global은 해외 고객과 직접 계약하는 주조·가공 부품 공급사입니다. 도면 검토부터 생산 구성, 품질 검사, 수출 서류까지 하나의 계약으로 책임집니다. 공작기계 베드 같은 대형 회주철 주물부터 구상흑연주철 소형 양산품까지.">
 <meta name="theme-color" content="#FFFFFF">
 <meta name="color-scheme" content="light">
+<link rel="canonical" href="https://kmtglobalco.com/">
+<link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/">
+<link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/">
 
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://kmtglobalco.com/">
 <meta property="og:site_name" content="KMT Global">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:title" content="KMT Global — 도면 한 장으로, 주조부터 수출까지 하나의 계약">
 <meta property="og:description" content="KMT Global — 기술 검토, 생산 구성, 품질 검사, 수출을 계약 당사자로서 끝까지 책임지는 한국 주조·가공 부품 공급사입니다.">
-
-<meta property="og:image" content="assets/brand/og.png">
+<meta property="og:image" content="https://kmtglobalco.com/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,8 +27,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="KMT Global — 도면 한 장으로, 주조부터 수출까지 하나의 계약">
 <meta name="twitter:description" content="KMT Global — 기술 검토, 생산 구성, 품질 검사, 수출을 계약 당사자로서 끝까지 책임지는 한국 주조·가공 부품 공급사입니다.">
-<meta name="twitter:image" content="assets/brand/og.png">
+<meta name="twitter:image" content="https://kmtglobalco.com/assets/brand/og.png">
 <meta name="twitter:image:alt" content="KMT Global — 공작기계 베드 등각 선화와 “도면 한 장으로, 주조부터 수출까지” 문구">
+<link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/brand/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -40,7 +43,10 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "#org",
+      "@id": "https://kmtglobalco.com/#org",
+      "url": "https://kmtglobalco.com/",
+      "logo": "https://kmtglobalco.com/assets/brand/icon-512.png",
+      "image": "https://kmtglobalco.com/assets/brand/og.png",
       "name": "KMT Global",
       "description": "KMT Global은 케이엠텍㈜(KOREA METAL TEC CO., LTD.)의 관계회사로, 해외 고객의 계약 당사자로서 회주철·구상흑연주철 주물과 가공 부품의 기술 검토, 생산 구성, 품질 관리, 수출을 맡습니다. 각 생산처는 별도 법인입니다.",
       "address": {
@@ -72,10 +78,12 @@
         {"@type": "Place", "name": "EU"}
       ]
     },
-    {"@type": "Service", "name": "주조·가공 부품 계약 공급", "provider": {"@id": "#org"}, "serviceType": "주조·가공 부품 공급", "areaServed": ["US", "JP", "EU"]},
-    {"@type": "Service", "name": "도면·주조성 검토", "provider": {"@id": "#org"}, "serviceType": "도면·주조성 검토(DFM)"},
-    {"@type": "Service", "name": "품질 관리·검사 조율", "provider": {"@id": "#org"}, "serviceType": "품질 관리"},
-    {"@type": "Service", "name": "수출 포장·물류·서류", "provider": {"@id": "#org"}, "serviceType": "수출 물류"},
+    {"@type": "Service", "name": "주조·가공 부품 계약 공급", "provider": {"@id": "https://kmtglobalco.com/#org"}, "serviceType": "주조·가공 부품 공급", "areaServed": ["US", "JP", "EU"]},
+    {"@type": "Service", "name": "도면·주조성 검토", "provider": {"@id": "https://kmtglobalco.com/#org"}, "serviceType": "도면·주조성 검토(DFM)"},
+    {"@type": "Service", "name": "품질 관리·검사 조율", "provider": {"@id": "https://kmtglobalco.com/#org"}, "serviceType": "품질 관리"},
+    {"@type": "Service", "name": "수출 포장·물류·서류", "provider": {"@id": "https://kmtglobalco.com/#org"}, "serviceType": "수출 물류"},
+    {"@type": "WebSite", "@id": "https://kmtglobalco.com/#website", "url": "https://kmtglobalco.com/", "name": "KMT Global", "inLanguage": "ko", "publisher": {"@id": "https://kmtglobalco.com/#org"}},
+    {"@type": "VideoObject", "name": "KMT Global — One accountable supplier for Korean castings & machined parts", "description": "KMT Global 소개 영상(영어, 63초): 도면 검토, 생산 구성, 책임 구조, 진행 절차.", "thumbnailUrl": "https://kmtglobalco.com/assets/video/kmt-global-intro-poster.jpg", "uploadDate": "2026-10-06", "duration": "PT1M3S", "contentUrl": "https://kmtglobalco.com/assets/video/kmt-global-intro-en.mp4", "inLanguage": "en", "publisher": {"@id": "https://kmtglobalco.com/#org"}},
     {
       "@type": "FAQPage",
       "mainEntity": [
@@ -166,7 +174,7 @@
   <div class="wrap">
     <div class="hero__grid">
       <p class="label hero__label"><span class="label__tick" aria-hidden="true"></span>SHEET 01 · 주조⁠·⁠가공 부품 원스톱 공급</p>
-      <h1 id="hero-title" class="hero__h1">도면 한 장으로,<br> 주조⁠·⁠가공⁠·⁠검사⁠·⁠수출까지<br> 한 곳에서 책임집니다.</h1>
+      <h1 id="hero-title" class="hero__h1"><span class="sr">KMT Global — 한국 주조⁠·⁠가공 부품 원스톱 공급사. </span>도면 한 장으로,<br> 주조⁠·⁠가공⁠·⁠검사⁠·⁠수출까지<br> 한 곳에서 책임집니다.</h1>
       <div class="hero__copy">
         <p class="hero__lead">KMT Global은 해외 고객과 직접 계약하는 주조⁠·⁠가공 부품 공급사입니다. 견적 전에 주조성⁠·⁠주조 방안⁠·⁠재질⁠·⁠가공을 직접 검토하고, 생산처 구성부터 품질 검사와 수출 서류까지 하나의 계약으로 끝까지 책임집니다.</p>
         <p class="hero__cta">

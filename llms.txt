@@ -1,0 +1,32 @@
+# KMT Global
+
+> KMT Global is a Korean contract supplier of iron castings and machined parts for overseas buyers. One contract covers engineering review, production setup across a Korean manufacturing network, quality control and inspection, and export. KMT Global is an affiliate of KOREA METAL TEC CO., LTD. (케이엠텍㈜), a gray and ductile iron foundry in Goryeong, Korea; each production site is a separate legal entity.
+
+## What KMT Global does
+- Contract party for overseas buyers: one contract, one point of contact (Korean, English, Japanese), accountable for quality, delivery and export
+- In-house engineering: drawing and castability review (DFM), casting method and pattern design, material and quality engineering, machining and assembly support (process design, tolerance review, post-machining inspection)
+- Production setup: assigns each part to the right production route and manages schedule and delivery
+- Quality: inspection standards, shipment inspection, traceable inspection documents
+- Export: packing, shipping documents, Incoterms agreed per order
+- Customer drawings are shared with a production site only within the scope the customer approves in writing (NDA where required)
+
+## Production network
+- Furan no-bake casting (small to large, single pieces and low-to-mid volumes) at affiliate KOREA METAL TEC, Goryeong plant: gray iron up to 10 t, ductile iron up to 5 t per piece, about 1,000 t/month; ISO 9001:2015 held by KOREA METAL TEC CO., LTD.
+- Automatic molding lines (high-volume small parts: automotive and driveline, agricultural, construction equipment, rail track, engine parts) at partner foundries, including an IATF 16949-certified foundry (certificate held by that foundry). Partner foundry names are not disclosed.
+- Machining by external machining partners, with process design and inspection by KMT Global
+- Materials: gray iron (KS GC / JIS FC) and ductile iron (KS GCD / JIS FCD); equivalents to ASTM / EN are approximate and confirmed per drawing
+
+## Typical parts
+Machine-tool beds, columns, saddles and tables; pump casings; gear cases; bases and counterweights; differential and transfer cases; axle cases; wheel hubs; rail base and turnout plates; rocker-arm supports.
+
+## How to work with us
+RFQ → NDA (if needed) → engineering review and route selection → quotation → patterns and tooling → first article (PPAP where required) → production → shipment inspection → export. Lead times and prices are quoted per part after drawing review.
+
+## Links
+- Website (Korean): https://kmtglobalco.com/
+- Introduction film (English): https://kmtglobalco.com/assets/video/kmt-global-intro-en.mp4
+
+## Contact
+- Kevin Chang, Global Sales Manager — kevin.chang@koreametaltec.com
+- Tel +82-54-956-8240 (weekdays 08:00–18:00 KST)
+- 21-26, Dasansandan 3-gil, Dasan-myeon, Goryeong-gun, Gyeongsangbuk-do 40113, Republic of Korea

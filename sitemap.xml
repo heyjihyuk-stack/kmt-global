@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://kmtglobalco.com/</loc>
+    <lastmod>2026-10-10</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/"/>
+    <video:video>
+      <video:thumbnail_loc>https://kmtglobalco.com/assets/video/kmt-global-intro-poster.jpg</video:thumbnail_loc>
+      <video:title>KMT Global — One accountable supplier for Korean castings &amp; machined parts</video:title>
+      <video:description>KMT Global introduction film (English, 63 s): engineering review, production setup, accountability structure and process.</video:description>
+      <video:content_loc>https://kmtglobalco.com/assets/video/kmt-global-intro-en.mp4</video:content_loc>
+      <video:duration>63</video:duration>
+      <video:publication_date>2026-10-06</video:publication_date>
+    </video:video>
+  </url>
+</urlset>
