@@ -13,7 +13,7 @@
 
   var KMTG = window.KMTG = window.KMTG || {};
   var doc = document;
-  var MAIL = 'kevin.chang@koreametaltec.com';
+  var MAIL = (document.getElementById('cf')&&document.getElementById('cf').getAttribute('action')||'mailto:sales@kmtglobalco.com').replace(/^mailto:/,'');
   var mqRM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   function reduced() { return mqRM.matches; }
   function $(s, c) { return (c || doc).querySelector(s); }

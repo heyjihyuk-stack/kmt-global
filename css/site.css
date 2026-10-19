@@ -188,6 +188,8 @@ sup{line-height:0}
 .lang__on,.lang__off{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:28px;padding:0 4px}
 .lang__on{color:var(--ink)!important;font-weight:600;box-shadow:inset 0 -1.5px 0 var(--ink)}
 .lang__off{color:var(--muted);opacity:.75;cursor:not-allowed}
+.lang__link{display:inline-flex;align-items:center;justify-content:center;min-width:30px;min-height:28px;padding:0 4px;color:var(--muted);text-decoration:none}
+.lang__link:hover,.lang__link:focus-visible{color:var(--ink)}
 
 .hdr{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s}
 .hdr.is-stuck{border-bottom-color:var(--line);box-shadow:0 2px 10px rgba(15,28,46,.05)}
@@ -736,6 +738,28 @@ main > section:not(#hero),.ft{content-visibility:auto;contain-intrinsic-size:aut
 .film__video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--paper-2);border:1px solid var(--line-2);border-radius:var(--radius)}
 @media (max-width:960px){.film{grid-template-columns:1fr;margin-top:56px}}
 
+/* 일본어판(2026-10-19): 일본어 글꼴 + 한국어용 keep-all 해제(띄어쓰기 없는 일본어는 normal로 줄바꿈) */
+html[lang="ja"]{--font-sans:"IBM Plex Sans JP","IBM Plex Sans","IBM Plex Sans KR",system-ui,-apple-system,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;--font-label:"IBM Plex Mono","IBM Plex Sans JP",ui-monospace,SFMono-Regular,Menlo,monospace}
+html[lang="ja"] body,html[lang="ja"] body *{word-break:normal!important;line-break:strict}
+html[lang="ja"] body{letter-spacing:0}
+html[lang="ja"] .st{--st-mono:var(--font-mono),"IBM Plex Sans JP",sans-serif}
+/* 2026-10-19 QA: 모바일 메뉴 언어 전환 */
+.mnav__lang{display:flex;gap:8px;margin:18px 0 0;padding:0;list-style:none}
+.mnav__lang a{display:inline-flex;align-items:center;justify-content:center;min-width:56px;min-height:44px;padding:0 12px;border:1px solid var(--line-2);border-radius:999px;font:600 13px/1 var(--font-label);letter-spacing:.04em;color:var(--ink-2);text-decoration:none}
+.mnav__lang a[aria-current="page"]{color:#fff;background:var(--ink);border-color:var(--ink)}
+/* 2026-10-19 QA(EN) */
+html[lang="en"] .afact{grid-template-columns:104px minmax(0,1fr)}
+/* 2026-10-19 QA(JA): 제목·라벨은 구 단위 줄바꿈, 고정 폭 라벨 칸 확대, 도면 치수 글꼴 */
+html[lang="ja"] body :is(h1,h2,h3,summary,.label){word-break:auto-phrase!important}
+html[lang="ja"] body .part__h{word-break:keep-all!important}
+html[lang="ja"] .passport > div{grid-template-columns:6.4em minmax(0,1fr)}
+html[lang="ja"] .sheetnav__name{max-width:none}
+html[lang="ja"] svg.fig .dim{font-family:"IBM Plex Mono","IBM Plex Sans JP",ui-monospace,monospace}
+@media (max-width:340px){html[lang="ja"] .part__h{font-size:14px}html[lang="ja"] .nw-chip span{font-size:12px}}
+html[lang="ja"] .sheetnav__name{white-space:nowrap}
+html[lang="ja"] body [lang="ko"]{word-break:keep-all!important}
+html[lang="ja"] a[data-mail]{overflow-wrap:normal}
+
 /* ==========================================================
    SECTION 4 · 책임 구조 (#structure) — dark sheet scrollytelling
    SPEC §3.3–3.4 · §6 row 4. Scoped to .st — merge into css/site.css as-is.
@@ -828,7 +852,7 @@ main > section:not(#hero),.ft{content-visibility:auto;contain-intrinsic-size:aut
   font:500 12px/1.4 var(--st-mono);letter-spacing:.04em;color:var(--st-mute);
 }
 .st__fig-no{color:var(--st-ink)}
-.st__legend{display:none;gap:14px;margin-left:auto;font-family:var(--font-sans,system-ui,sans-serif);letter-spacing:0}
+.st__legend{display:none;gap:14px;margin-left:auto;font-family:var(--font-sans,system-ui,sans-serif);letter-spacing:0;word-spacing:normal}
 .st--live .st__legend{display:flex}
 .st-lg{display:inline-flex;align-items:center;gap:6px;opacity:.5;transition:opacity .3s}
 .st-lg i{display:inline-block;width:18px;height:0;border-top:2px dashed currentColor}
@@ -1317,6 +1341,13 @@ html:not(.js) .nw-rfq .nw-k small{display:none}
 .photo__parts img{width:100%;height:auto;aspect-ratio:520/340;object-fit:contain;padding:6px}
 .nw-checks .nw-chk small{max-width:30ch}
 .photo__parts .photo__tag{left:0;right:0;top:0;border:0;border-radius:0;border-bottom:1px solid var(--line);padding:12px 12px;background:var(--paper)}
+html[lang="en"] .nw-card::before{content:"Likely route"}
+html[lang="ja"] .nw-card::before{content:"想定ルート"}
+/* 2026-10-19 QA(EN·JA) */
+.nw-result__cta .nw-cta{max-width:100%;white-space:normal;text-align:center}
+html[lang="en"] .nw-row2{grid-template-columns:minmax(0,1fr)}
+html[lang="ja"] .nw-chip span{overflow-wrap:normal;word-break:auto-phrase!important}
+html[lang="ja"] .nw-card__dl > div{grid-template-columns:7.5em minmax(0,1fr)}
 
 /* =====================================================================
    6 · 모션 — "그려진다" (SPEC §3.4)
@@ -1574,8 +1605,15 @@ html:not(.js) .part__more{display:none}
 /* 터치 기기: 작은 보조 버튼도 44px 이상 */
 @media (pointer:coarse){
   .copy{min-height:44px}
-  .lang__on,.lang__off{min-height:44px}
+  .lang__on,.lang__off,.lang__link{min-height:44px}
   /* 헤더 꼬리표 링크: 보이는 크기는 그대로, 누르는 영역만 세로 44px(가로는 넓히지 않아 워드마크 링크와 겹치지 않음) */
   .brand__tag{position:relative}
   .brand__tag::after{content:"";position:absolute;left:-1px;right:-1px;top:50%;height:44px;transform:translateY(-50%)}
 }
+/* 2026-10-19 QA(EN·JA·KO) */
+@media (max-width:429px){.clock__st{display:none}}
+@media (max-width:430px){.mbar__main{white-space:nowrap;padding:0 10px;font-size:15px}}
+@media (max-width:720px){.tbl--compact tbody th{white-space:normal;width:42%}html[lang="en"] .afact{grid-template-columns:92px minmax(0,1fr)}}
+.fold__k{flex:none;white-space:nowrap}
+@media (pointer:coarse){.lang__on,.lang__off,.lang__link{min-width:40px}}
+@media (max-width:400px){.fold__sum{flex-wrap:wrap}.fold__sum .fold__k{margin-left:0}}

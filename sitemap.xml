@@ -4,9 +4,11 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://kmtglobalco.com/</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2026-10-19</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/index-en.html"/>
     <video:video>
       <video:thumbnail_loc>https://kmtglobalco.com/assets/video/kmt-global-intro-poster.jpg</video:thumbnail_loc>
       <video:title>KMT Global — One accountable supplier for Korean castings &amp; machined parts</video:title>
@@ -15,5 +17,21 @@
       <video:duration>63</video:duration>
       <video:publication_date>2026-10-06</video:publication_date>
     </video:video>
+  </url>
+  <url>
+    <loc>https://kmtglobalco.com/index-en.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/index-en.html"/>
+  </url>
+  <url>
+    <loc>https://kmtglobalco.com/index-jp.html</loc>
+    <lastmod>2026-10-19</lastmod>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/index-en.html"/>
   </url>
 </urlset>
