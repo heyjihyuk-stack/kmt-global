@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://kmtglobalco.com/</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
@@ -15,12 +15,12 @@
       <video:description>KMT Global introduction film (English, 63 s): engineering review, production setup, accountability structure and process.</video:description>
       <video:content_loc>https://kmtglobalco.com/assets/video/kmt-global-intro-en.mp4</video:content_loc>
       <video:duration>63</video:duration>
-      <video:publication_date>2026-10-06</video:publication_date>
+      <video:publication_date>2026-10-28</video:publication_date>
     </video:video>
   </url>
   <url>
     <loc>https://kmtglobalco.com/index-en.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
@@ -28,7 +28,7 @@
   </url>
   <url>
     <loc>https://kmtglobalco.com/index-jp.html</loc>
-    <lastmod>2026-10-19</lastmod>
+    <lastmod>2026-10-28</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>

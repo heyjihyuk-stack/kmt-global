@@ -67,17 +67,26 @@
       body: '10 t을 넘는 주물은 현재 확인된 생산 범위 밖입니다. 도면과 조건을 보내 주시면 가능 여부를 검토해 결과를 알려 드립니다.' },
     'R-X2': { big: '검토', tag: 'FCD 5 t 초과', match: [], card: '#nw-card-a',
       title: '구상흑연주철 5 t 초과',
-      body: '관계사 케이엠텍 고령공장의 구상흑연주철 최대 단중(5 t)을 넘습니다. 도면을 보내 주시면 가능 여부를 검토해 회신합니다.' }
+      body: '관계사 케이엠텍 고령공장의 구상흑연주철 최대 단중(5 t)을 넘습니다. 도면을 보내 주시면 가능 여부를 검토해 회신합니다.' },
+    'R-X3': { big: '검토', tag: 'IATF · 1 t 이상', match: [], card: '#nw-cards',
+      title: '현재 맞는 경로가 없습니다',
+      body: '1 t 이상이면서 IATF 16949 인증 생산처가 필요한 조건에는 현재 맞는 경로가 없습니다. 관계사 케이엠텍 고령공장(후란 주조)의 인증은 ISO 9001:2015입니다.' },
+    'R-X4': { big: '검토', tag: '물량 확인', match: [], card: '#nw-cards',
+      title: '연간 물량 확인이 필요합니다',
+      body: '선택한 단중·수량이면 연간 물량이 25,000 t을 넘어, 관계사 케이엠텍 고령공장의 연간 생산 능력(약 12,000 t)보다 많습니다. 도면과 연간 물량을 보내 주시면 가능 여부를 검토해 회신합니다.' }
   };
   var NOTES = {
     'N-W5': ['+ 재질', '5 t을 넘는 단중은 회주철로 확인된 범위입니다. 관계사 케이엠텍 고령공장의 구상흑연주철 최대 단중은 5 t입니다.'],
-    'N-C': ['+ 가공', '가공은 외부 가공 협력사에서 하고, 가공 공정 설계·공차 검토·가공 후 검사는 KMT Global이 맡습니다.'],
-    'N-IATF-B': ['+ IATF', 'IATF 16949 인증 생산처 경로로 검토합니다. 인증 확인 방법은 해당 건에 한해 협의합니다.'],
+    'N-C': ['+ 가공', '가공은 외부 가공 협력사에서 하고, KMT Global은 가공처의 공정 계획과 측정 결과를 검토합니다.'],
+    'N-IATF-B': ['+ IATF', 'IATF 16949 인증 생산처 경로로 검토합니다. 해당 건의 생산처는 NDA를 맺은 뒤 알려 드리며, 인증 확인 방법도 그때 안내합니다.'],
     'N-IATF-A': ['+ IATF', 'IATF 16949 인증 생산처는 협력 주물 생산처(자동조형) 가운데 있습니다. 이 단중이 인증 생산처 범위에 드는지는 도면 검토 후 확인합니다.'],
-    'N-IATF-L': ['+ IATF', '후란 주조 경로(관계사 케이엠텍 고령공장)의 인증은 ISO 9001:2015이며, IATF 16949 인증 생산처가 아닙니다. IATF 16949 인증이 꼭 필요하시면 도면을 보내 주세요. 가능 여부를 검토해 회신합니다.'],
+    'N-IATF-L': ['+ IATF', '후란 주조 경로(관계사 케이엠텍 고령공장)의 인증은 ISO 9001:2015이며, IATF 16949 인증 생산처가 아닙니다. 1 t 이상이면서 IATF 16949 인증 생산처가 필요한 조건에는 현재 맞는 경로가 없습니다.'],
+    'N-CAP-A': ['+ 물량', '관계사 케이엠텍 고령공장의 연간 생산 능력은 약 12,000 t입니다. 연간 물량(단중 × 수량)이 크면 생산 가능 여부를 별도로 확인합니다.'],
+    'N-CAP-B': ['+ 물량', '자동조형 경로는 생산처마다 생산 능력이 정해져 있어, 연간 물량을 확인한 뒤 회신합니다.'],
     'N-M': ['+ 재질', '재질은 사용 조건과 도면을 보고 함께 정할 수 있습니다.']
   };
   var NOTE = '예비 안내 — 실제 경로와 가능 여부는 도면 검토 후 확인';
+  var NDA_KEY = 'NDA 선행 필요 여부'; // RFQ 체크리스트의 NDA 체크박스 value (index.src.html #nw-result)
 
   /* ------------------------------------------------------------------
    * 판정 (content_ko §5-3 판정 규칙) — 순수 함수
@@ -100,6 +109,11 @@
     } else if (w === 'w3') code = q === 'q4' ? 'R-AB' : 'R-A';
     else if (w === 'w2') code = (q === 'q3' || q === 'q4') ? 'R-B' : 'R-AB';
     else code = (q === 'q3' || q === 'q4') ? 'R-B' : 'R-S';
+    // 1 t 이상(후란 주조 경로)을 경로 A로 안내하지 않는 조건
+    //  · 수량 하한으로 본 최소 연간 물량이 고령공장 능력(연 약 12,000 t)을 넘음: w5(5 t 초과) × q4(5,000개 이상) = 25,000 t 초과
+    //  · IATF 16949 인증 생산처 필요: 후란 주조 경로는 ISO 9001이며, 지금은 맞는 경로가 없다
+    if (code === 'R-A' && w === 'w5' && q === 'q4') code = 'R-X4';
+    else if (code === 'R-A' && s.iatf === 'Y' && (w === 'w4' || w === 'w5')) code = 'R-X3';
 
     out.kind = /R-[AB]/.test(code) && code !== 'R-AB' ? 'route' : (code === 'R-AB' ? 'review' : 'special');
     out.code = code;
@@ -108,11 +122,14 @@
     out.match = r.match.slice();
 
     if (w === 'w5' && mat !== 'FC' && mat !== 'FCD') out.notes.push('N-W5');
+    // 연간 물량 확인: 1 t 이상(후란 주조, 연 약 12,000 t)은 연 500개 이상일 때(최소 500 t), 자동조형 경로는 항상
+    if (code === 'R-A' && (w === 'w4' || w === 'w5') && (q === 'q3' || q === 'q4')) out.notes.push('N-CAP-A');
+    if (code === 'R-B') out.notes.push('N-CAP-B');
     if (s.mc === 'Y') { out.notes.push('N-C'); out.match.push('C'); }
     if (s.iatf === 'Y') {
       if (code === 'R-B') out.notes.push('N-IATF-B');
-      // 1 t 이상(후란 주조 경로)은 IATF 인증 생산처 범위가 아니라고 분명히 밝힌다
-      else if (code === 'R-X2' || (code === 'R-A' && (w === 'w4' || w === 'w5'))) out.notes.push('N-IATF-L');
+      // 1 t 이상(R-X1·R-X2·R-X4)은 IATF 인증 생산처 범위가 아니며, 지금은 맞는 경로가 없다고 밝힌다(R-X3은 본문에 같은 내용)
+      else if (code === 'R-X1' || code === 'R-X2' || code === 'R-X4') out.notes.push('N-IATF-L');
       else if (code === 'R-A' || code === 'R-AB') out.notes.push('N-IATF-A');
     }
     if (mat === 'U') out.notes.push('N-M');
@@ -480,9 +497,12 @@
   };
   Finder.prototype.payload = function () {
     var s = this.state(), r = this.res;
-    var ready = [];
+    var ready = [], nda = false;
     var cks = this.el.querySelectorAll('[data-nw-check] input:checked');
-    for (var i = 0; i < cks.length; i++) ready.push(cks[i].value);
+    for (var i = 0; i < cks.length; i++) {
+      if (cks[i].value === NDA_KEY) nda = true; // NDA 선행 체크는 '준비된 자료'가 아니라 요청으로 다룬다
+      else ready.push(cks[i].value);
+    }
     var obj = {
       source: 'route-finder',
       materialKey: s.mat || '',
@@ -495,11 +515,12 @@
       code: r.code || '',
       title: r.title || '',
       ready: ready,
+      nda: nda,
       note: NOTE
     };
     var L = [
       '안녕하세요, KMT Global 해외영업 담당자님.',
-      '생산 경로 찾기에서 고른 조건으로 도면 검토를 요청드립니다.',
+      nda ? '생산 경로 찾기에서 고른 조건으로 도면 검토를 문의드립니다. 도면을 보내기 전에 NDA를 먼저 맺고 싶습니다.' : '생산 경로 찾기에서 고른 조건으로 도면 검토를 요청드립니다.',
       '',
       '■ 재질: ' + (obj.material || '-'),
       '■ 단중: ' + (obj.weight || '-'),
@@ -507,14 +528,15 @@
       '■ 가공: ' + (obj.machining || '-'),
       '■ IATF 16949 인증 생산처: ' + (obj.iatf || '-'),
       '■ 준비된 자료: ' + (ready.length ? ready.join(', ') : '-'),
+      '■ NDA 선행: ' + (nda ? '필요' : '-'),
       '',
-      '도면 파일: 이 메일에 첨부합니다(2D PDF, 가능하면 3D STEP).',
+      nda ? '도면은 NDA를 맺은 뒤 보내 드리겠습니다. NDA 진행 방법을 알려 주세요.' : '도면 파일: 이 메일에 첨부합니다(2D PDF, 가능하면 3D STEP).',
       '(생산 경로 찾기 예비 안내: ' + (obj.title || '-') + ')',
       '',
       '감사합니다.'
     ];
     obj.message = L.join('\r\n');
-    obj.subject = '[도면 검토 요청] ' + [obj.material, obj.weight].filter(Boolean).join(' · ');
+    obj.subject = (nda ? '[NDA 요청 · 도면 검토 문의] ' : '[도면 검토 요청] ') + [obj.material, obj.weight].filter(Boolean).join(' · ');
     return obj;
   };
   Finder.prototype.mailto = function (obj) {

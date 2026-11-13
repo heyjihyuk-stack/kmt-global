@@ -43,6 +43,7 @@
     '\uc544\ub2c8\uc694': 'No'
   };
   var NDA_YES = 'Yes'; // value of the "Yes — NDA needed before drawings" radio (fe() also maps the Korean '\uc608')
+  var NDA_NO = 'No'; // value of the "No" radio (fe() also maps the Korean '\uc544\ub2c8\uc694')
   function fe(x) { return Object.prototype.hasOwnProperty.call(FORM_EN, x) ? FORM_EN[x] : x; }
 
   /* screen-reader announcements */
@@ -437,10 +438,10 @@
       var d = function (x) { return x || '-'; };
       var mat = [fe(v('material')), v('spec')].filter(Boolean).join(' · ');
       var docs = $$('input[name="docs"]:checked', form).map(function (i) { return fe(i.value); }).join(', ');
-      var nda = v('nda');
+      var nda = v('nda'), ndaFirst = fe(nda) === NDA_YES;
       var L = [
         'Hello KMT Global Sales,',
-        'Please review our drawing on the basis of the details below.',
+        ndaFirst ? 'We are inquiring about a drawing review on the basis of the details below. We would like to sign an NDA before sending our drawings.' : 'Please review our drawing on the basis of the details below.',
         '',
         '■ Company: ' + d(v('company')),
         '■ Name: ' + d(v('name')),
@@ -454,12 +455,12 @@
         '■ NDA first: ' + d(fe(nda)),
         '■ Additional requirements: ' + d(v('memo')),
         '',
-        fe(nda) === NDA_YES ? 'We will send the drawings once the NDA is signed.' : 'Drawing files: attached to this email (2D PDF, plus 3D STEP if available).'
+        ndaFirst ? 'We will send the drawings once the NDA is signed. Please let us know how to proceed with the NDA.' : 'Drawing files: attached to this email (2D PDF, plus 3D STEP if available).'
       ];
       if (cf.extra) L.push(cf.extra);
       L.push('', 'Best regards,', v('name'));
       return {
-        subject: '[Drawing review request] ' + d(v('company')) + ' · ' + d(v('part')),
+        subject: (ndaFirst ? '[NDA request · drawing review inquiry] ' : '[Drawing review request] ') + d(v('company')) + ' · ' + d(v('part')),
         body: L.join('\r\n')
       };
     }
@@ -495,7 +496,7 @@
       if (!validate()) return;
       var m = compose();
       window.location.href = 'mailto:' + MAIL + '?subject=' + enc(m.subject) + '&body=' + enc(m.body);
-      say('Your email app is open. Please attach your drawing files.');
+      say(fe(v('nda')) === NDA_YES ? 'Your email app is open. Please send the drawings after the NDA is signed.' : 'Your email app is open. Please attach your drawing files.');
     });
     webLinks.forEach(function (a) {
       a.addEventListener('click', function (e) {
@@ -527,6 +528,9 @@
       if (o.weight) f.elements.weight.value = o.weight;
       if (o.qty) f.elements.qty.value = o.qty + ' per year';
       if (o.machiningKey) setRadio(f, 'machining', MCR[o.machiningKey]);
+      // route finder's NDA-first box → form 'NDA first: Yes'; if the route finder set it and the box is later unticked, set it back to 'No'
+      if (o.nda) { setRadio(f, 'nda', NDA_YES); cf.ndaByRoute = true; }
+      else if (cf.ndaByRoute) { setRadio(f, 'nda', NDA_NO); cf.ndaByRoute = false; }
       var memo = [];
       if (o.iatf) memo.push('IATF 16949-certified site: ' + o.iatf);
       if (o.ready && o.ready.length) memo.push('Information ready: ' + o.ready.join('; '));

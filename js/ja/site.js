@@ -17,11 +17,11 @@
   var MAIL = (document.getElementById('cf')&&document.getElementById('cf').getAttribute('action')||'mailto:sales@kmtglobalco.com').replace(/^mailto:/,'');
   var mqRM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
   /* 문의 폼 value 속성은 한국어 원본 그대로다(HTML 번역에서 바꾸지 않음 — 이 파일이 값으로 라디오를 찾는다).
-     \u 표기 = 회주철(GC/FC) · 구상흑연주철(GCD/FCD) · 기타·미정 · 필요 · 필요 없음 · 미정 · 예.
+     \u 표기 = 회주철(GC/FC) · 구상흑연주철(GCD/FCD) · 기타·미정 · 필요 · 필요 없음 · 미정 · 예 · 아니요.
      메일 본문에는 value 대신 보이는 라벨(일본어) 글자를 쓴다 → shown() */
   var V = {
     FC: '\uD68C\uC8FC\uCCA0(GC/FC)', FCD: '\uAD6C\uC0C1\uD751\uC5F0\uC8FC\uCCA0(GCD/FCD)', MU: '\uAE30\uD0C0\u00B7\uBBF8\uC815',
-    Y: '\uD544\uC694', N: '\uD544\uC694 \uC5C6\uC74C', U: '\uBBF8\uC815', YES: '\uC608'
+    Y: '\uD544\uC694', N: '\uD544\uC694 \uC5C6\uC74C', U: '\uBBF8\uC815', YES: '\uC608', NO: '\uC544\uB2C8\uC694'
   };
   var ORD = { FC: 0, FCD: 1, Y: 0, N: 1, U: 2 }; // value를 못 찾을 때의 순서(재질 FC·FCD·미정 / 가공 필요·필요 없음·미정)
   var HANGUL = /[\uAC00-\uD7A3]/;
@@ -427,17 +427,20 @@
       var el = form.elements[name];
       return el ? String(el.value || '').trim() : '';
     }
+    function isNdaYes(ndaIn) { // NDA 선행 '예'(첫 번째 라디오)
+      return !!ndaIn && (ndaIn.value === V.YES || ndaIn === $('input[name="nda"]', form));
+    }
     function compose() {
       var d = function (x) { return x || '-'; };
       var mat = [shown($('input[name="material"]:checked', form)), v('spec')].filter(Boolean).join('、');
       var docs = $$('input[name="docs"]:checked', form).map(shown).join('、');
       var ndaIn = $('input[name="nda"]:checked', form);
-      var ndaYes = !!ndaIn && (ndaIn.value === V.YES || ndaIn === $('input[name="nda"]', form)); // 첫 번째 = 예
+      var ndaYes = isNdaYes(ndaIn);
       var L = [
         'KMT Global',
         '海外営業ご担当者様',
         '',
-        '以下の条件で図面の検討をお願いいたします。',
+        ndaYes ? '以下の条件で、図面の検討についてお問い合わせします。図面をお送りする前に、NDAを先に締結したいと考えています。' : '以下の条件で図面の検討をお願いいたします。',
         '',
         '■ 会社名：' + d(v('company')),
         '■ お名前：' + d(v('name')),
@@ -451,12 +454,12 @@
         '■ NDAの事前締結：' + d(shown(ndaIn)),
         '■ その他のご要望：' + d(v('memo')),
         '',
-        ndaYes ? '図面はNDA締結後にお送りします。' : '図面ファイル：本メールに添付します（2D PDF、可能であれば3D STEP）。'
+        ndaYes ? '図面はNDA締結後にお送りします。NDAの進め方をお知らせください。' : '図面ファイル：本メールに添付します（2D PDF、可能であれば3D STEP）。'
       ];
       if (cf.extra) L.push(cf.extra);
       L.push('', 'よろしくお願いいたします。', v('name'));
       return {
-        subject: '【図面検討のご依頼】' + d(v('company')) + '／' + d(v('part')),
+        subject: (ndaYes ? '【NDAのご依頼・図面検討のお問い合わせ】' : '【図面検討のご依頼】') + d(v('company')) + '／' + d(v('part')),
         body: L.join('\r\n')
       };
     }
@@ -492,7 +495,7 @@
       if (!validate()) return;
       var m = compose();
       window.location.href = 'mailto:' + MAIL + '?subject=' + enc(m.subject) + '&body=' + enc(m.body);
-      say('メールソフトを開きました。図面ファイルを添付してください。');
+      say(isNdaYes($('input[name="nda"]:checked', form)) ? 'メールソフトを開きました。図面はNDA締結後にお送りください。' : 'メールソフトを開きました。図面ファイルを添付してください。');
     });
     webLinks.forEach(function (a) {
       a.addEventListener('click', function (e) {
@@ -523,6 +526,9 @@
       if (o.weight) f.elements.weight.value = o.weight;
       if (o.qty) f.elements.qty.value = '年間' + o.qty;
       if (o.machiningKey) setRadio(f, 'machining', MCR[o.machiningKey], ORD[o.machiningKey]);
+      // 경로 찾기의 NDA 선행 체크 → 폼의 NDA 선행 '예'(첫 번째). 경로 찾기가 켠 '예'는 체크를 풀고 다시 보내면 '아니요'로 되돌린다
+      if (o.nda) { setRadio(f, 'nda', V.YES, 0); cf.ndaByRoute = true; }
+      else if (cf.ndaByRoute) { setRadio(f, 'nda', V.NO, 1); cf.ndaByRoute = false; }
       var memo = [];
       if (o.iatf) memo.push('IATF 16949認証工場：' + o.iatf);
       if (o.ready && o.ready.length) memo.push('準備済みの資料：' + o.ready.join('、'));

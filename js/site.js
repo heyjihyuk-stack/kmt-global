@@ -416,7 +416,7 @@
       var nda = v('nda');
       var L = [
         '안녕하세요, KMT Global 해외영업 담당자님.',
-        '아래 조건으로 도면 검토를 요청드립니다.',
+        nda === '예' ? '아래 조건으로 도면 검토를 문의드립니다. 도면을 보내기 전에 NDA를 먼저 맺고 싶습니다.' : '아래 조건으로 도면 검토를 요청드립니다.',
         '',
         '■ 회사: ' + d(v('company')),
         '■ 이름: ' + d(v('name')),
@@ -430,12 +430,12 @@
         '■ NDA 선행: ' + d(nda),
         '■ 추가 요구사항: ' + d(v('memo')),
         '',
-        nda === '예' ? '도면은 NDA 체결 후 보내 드리겠습니다.' : '도면 파일: 이 메일에 첨부합니다(2D PDF, 가능하면 3D STEP).'
+        nda === '예' ? '도면은 NDA를 맺은 뒤 보내 드리겠습니다. NDA 진행 방법을 알려 주세요.' : '도면 파일: 이 메일에 첨부합니다(2D PDF, 가능하면 3D STEP).'
       ];
       if (cf.extra) L.push(cf.extra);
       L.push('', '감사합니다.', (v('name') ? v('name') + ' 드림' : ''));
       return {
-        subject: '[도면 검토 요청] ' + d(v('company')) + ' · ' + d(v('part')),
+        subject: (nda === '예' ? '[NDA 요청 · 도면 검토 문의] ' : '[도면 검토 요청] ') + d(v('company')) + ' · ' + d(v('part')),
         body: L.join('\r\n')
       };
     }
@@ -471,7 +471,7 @@
       if (!validate()) return;
       var m = compose();
       window.location.href = 'mailto:' + MAIL + '?subject=' + enc(m.subject) + '&body=' + enc(m.body);
-      say('메일 앱을 열었습니다. 도면 파일을 첨부해 주세요.');
+      say(v('nda') === '예' ? '메일 앱을 열었습니다. 도면은 NDA를 맺은 뒤 보내 주세요.' : '메일 앱을 열었습니다. 도면 파일을 첨부해 주세요.');
     });
     webLinks.forEach(function (a) {
       a.addEventListener('click', function (e) {
@@ -501,6 +501,9 @@
       if (o.weight) f.elements.weight.value = o.weight;
       if (o.qty) f.elements.qty.value = '연 ' + o.qty;
       if (o.machiningKey) setRadio(f, 'machining', MCR[o.machiningKey]);
+      // 경로 찾기의 NDA 선행 체크 → 폼의 NDA 선행 '예'. 경로 찾기가 켠 '예'만, 체크를 풀고 다시 넘기면 '아니요'로 되돌린다
+      if (o.nda) { setRadio(f, 'nda', '예'); cf.ndaByRoute = true; }
+      else if (cf.ndaByRoute) { setRadio(f, 'nda', '아니요'); cf.ndaByRoute = false; }
       var memo = [];
       if (o.iatf) memo.push('IATF 16949 인증 생산처: ' + o.iatf);
       if (o.ready && o.ready.length) memo.push('준비된 자료: ' + o.ready.join(', '));

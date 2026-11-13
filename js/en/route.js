@@ -81,18 +81,29 @@
       body: 'Castings over 10 t are outside the production range confirmed at present. Send us your drawing and conditions, and we will review feasibility and tell you the result.' },
     'R-X2': { big: 'Review', tag: 'FCD over 5 t', match: [], card: '#nw-card-a',
       title: 'Ductile iron over 5 t',
-      body: 'This exceeds the max. ductile iron piece weight (5 t) at the Goryeong foundry of our affiliate Korea Metal Tec. Send us your drawing, and we will review feasibility and reply.' }
+      body: 'This exceeds the max. ductile iron piece weight (5 t) at the Goryeong foundry of our affiliate Korea Metal Tec. Send us your drawing, and we will review feasibility and reply.' },
+    // 1 t or more + IATF 16949 required: no route fits at present (the furan no-bake site is ISO 9001) — shown as the result itself, not as a note
+    'R-X3': { big: '—', tag: 'No route', match: [], card: '#nw-cards',
+      title: 'No route fits at present',
+      body: 'For parts of 1 t or more that require an IATF 16949-certified site, there is currently no route that fits. The certification of the Goryeong foundry of our affiliate Korea Metal Tec (furan no-bake) is ISO 9001:2015.' },
+    // over 5 t × 5,000 pcs or more a year = over 25,000 t a year, beyond the Goryeong foundry's annual capacity (about 12,000 t)
+    'R-X4': { big: 'Review', tag: 'Volume check', match: [], card: '#nw-card-a',
+      title: 'Annual volume needs to be confirmed',
+      body: 'With the piece weight and volume you selected, the annual tonnage exceeds 25,000 t, more than the annual capacity of the Goryeong foundry of our affiliate Korea Metal Tec (about 12,000 t). Send us your drawing and annual volume, and we will review feasibility and reply.' }
   };
-  // note badges sit in a 58px column (css .nw-result__why li b), so they stay short: Mat. = material, C = route C (machining)
+  // note badges sit in a 58px column (css .nw-result__why li b), so they stay short: Mat. = material, C = route C (machining), Vol. = annual volume vs. capacity
   var NOTES = {
     'N-W5': ['+ Mat.', 'Piece weights over 5 t are confirmed for gray iron. The max. ductile iron piece weight at the Goryeong foundry of our affiliate Korea Metal Tec is 5 t.'],
-    'N-C': ['+ C', 'Machining is done by external machining partners. KMT Global takes on machining process design, tolerance review and post-machining inspection.'],
-    'N-IATF-B': ['+ IATF', 'We review this for the route through the IATF 16949-certified foundry. How the certificate can be verified is agreed only for that order.'],
+    'N-C': ['+ C', 'Machining is done by external machining partners. KMT Global reviews the process plan and measurement results of the machining partner.'],
+    'N-IATF-B': ['+ IATF', 'We review this for the route through the IATF 16949-certified foundry. After an NDA is signed, we tell you the production site for your order and explain how the certificate can be verified.'],
     'N-IATF-A': ['+ IATF', 'The IATF 16949-certified foundry is one of the partner foundries (automatic molding). Whether this piece weight falls within its range is confirmed after drawing review.'],
-    'N-IATF-L': ['+ IATF', 'On the furan no-bake route (Goryeong foundry of our affiliate Korea Metal Tec), the certification is ISO 9001:2015; this site is not IATF 16949-certified. If you need IATF 16949, please send us your drawing. We will review feasibility and reply.'],
+    'N-IATF-L': ['+ IATF', 'On the furan no-bake route (Goryeong foundry of our affiliate Korea Metal Tec), the certification is ISO 9001:2015; this site is not IATF 16949-certified. For parts of 1 t or more that require an IATF 16949-certified site, there is currently no route that fits.'],
+    'N-CAP-A': ['+ Vol.', 'The annual capacity of the Goryeong foundry of our affiliate Korea Metal Tec is about 12,000 t. If your annual tonnage (piece weight × quantity) is large, we confirm feasibility separately.'],
+    'N-CAP-B': ['+ Vol.', 'Each production site on the automatic molding route has a set capacity, so we check your annual volume before we reply.'],
     'N-M': ['+ Mat.', 'We can decide the material with you, based on the operating conditions and the drawing.']
   };
   var NOTE = 'Preliminary guidance — actual route and feasibility confirmed after drawing review';
+  var NDA_KEY = 'Whether an NDA is needed first'; // RFQ checklist NDA checkbox value (index.src.en.html #nw-result); the Korean master value maps to it via READY_EN
 
   /* ------------------------------------------------------------------
    * decision (content_ko §5-3 decision rules) — pure function
@@ -115,6 +126,11 @@
     } else if (w === 'w3') code = q === 'q4' ? 'R-AB' : 'R-A';
     else if (w === 'w2') code = (q === 'q3' || q === 'q4') ? 'R-B' : 'R-AB';
     else code = (q === 'q3' || q === 'q4') ? 'R-B' : 'R-S';
+    // conditions at 1 t and above (furan no-bake route) that are not shown as route A
+    //  · minimum annual tonnage from the lower bounds exceeds the Goryeong foundry's capacity (about 12,000 t a year): w5 (over 5 t) × q4 (5,000 pcs+) = over 25,000 t
+    //  · IATF 16949-certified site required: the furan no-bake route is ISO 9001, and no route fits at present
+    if (code === 'R-A' && w === 'w5' && q === 'q4') code = 'R-X4';
+    else if (code === 'R-A' && s.iatf === 'Y' && (w === 'w4' || w === 'w5')) code = 'R-X3';
 
     out.kind = /R-[AB]/.test(code) && code !== 'R-AB' ? 'route' : (code === 'R-AB' ? 'review' : 'special');
     out.code = code;
@@ -123,11 +139,14 @@
     out.match = r.match.slice();
 
     if (w === 'w5' && mat !== 'FC' && mat !== 'FCD') out.notes.push('N-W5');
+    // annual volume check: 1 t and above with 500 pcs+ a year (min. 500 t a year; furan no-bake capacity about 12,000 t) and the automatic molding route
+    if (code === 'R-A' && (w === 'w4' || w === 'w5') && (q === 'q3' || q === 'q4')) out.notes.push('N-CAP-A');
+    if (code === 'R-B') out.notes.push('N-CAP-B');
     if (s.mc === 'Y') { out.notes.push('N-C'); out.match.push('C'); }
     if (s.iatf === 'Y') {
       if (code === 'R-B') out.notes.push('N-IATF-B');
-      // 1 t and above (furan no-bake route): state clearly that this is outside the IATF-certified site's range
-      else if (code === 'R-X2' || (code === 'R-A' && (w === 'w4' || w === 'w5'))) out.notes.push('N-IATF-L');
+      // 1 t and above (R-X1 · R-X2 · R-X4) is outside the IATF-certified site's range: state that no route fits at present (R-X3 says the same in its body)
+      else if (code === 'R-X1' || code === 'R-X2' || code === 'R-X4') out.notes.push('N-IATF-L');
       else if (code === 'R-A' || code === 'R-AB') out.notes.push('N-IATF-A');
     }
     if (mat === 'U') out.notes.push('N-M');
@@ -495,9 +514,13 @@
   };
   Finder.prototype.payload = function () {
     var s = this.state(), r = this.res;
-    var ready = [];
+    var ready = [], nda = false;
     var cks = this.el.querySelectorAll('[data-nw-check] input:checked');
-    for (var i = 0; i < cks.length; i++) ready.push(Object.prototype.hasOwnProperty.call(READY_EN, cks[i].value) ? READY_EN[cks[i].value] : cks[i].value);
+    for (var i = 0; i < cks.length; i++) {
+      var val = Object.prototype.hasOwnProperty.call(READY_EN, cks[i].value) ? READY_EN[cks[i].value] : cks[i].value;
+      if (val === NDA_KEY) nda = true; // the NDA-first box is a request, not 'information ready'
+      else ready.push(val);
+    }
     var obj = {
       source: 'route-finder',
       materialKey: s.mat || '',
@@ -510,11 +533,12 @@
       code: r.code || '',
       title: r.title || '',
       ready: ready,
+      nda: nda,
       note: NOTE
     };
     var L = [
       'Hello KMT Global Sales,',
-      'Please review our drawing on the basis of the conditions we selected in the route finder.',
+      nda ? 'We are inquiring about a drawing review on the basis of the conditions we selected in the route finder. We would like to sign an NDA before sending our drawings.' : 'Please review our drawing on the basis of the conditions we selected in the route finder.',
       '',
       '■ Material: ' + (obj.material || '-'),
       '■ Piece weight: ' + (obj.weight || '-'),
@@ -522,14 +546,15 @@
       '■ Machining: ' + (obj.machining || '-'),
       '■ IATF 16949-certified site: ' + (obj.iatf || '-'),
       '■ Information ready: ' + (ready.length ? ready.join('; ') : '-'),
+      '■ NDA first: ' + (nda ? 'Required' : '-'),
       '',
-      'Drawing files: attached to this email (2D PDF, plus 3D STEP if available).',
+      nda ? 'We will send the drawings once the NDA is signed. Please let us know how to proceed with the NDA.' : 'Drawing files: attached to this email (2D PDF, plus 3D STEP if available).',
       '(Route finder — preliminary guidance: ' + (obj.title || '-') + ')',
       '',
       'Best regards,'
     ];
     obj.message = L.join('\r\n');
-    obj.subject = '[Drawing review request] ' + [obj.material, obj.weight].filter(Boolean).join(' · ');
+    obj.subject = (nda ? '[NDA request · drawing review inquiry] ' : '[Drawing review request] ') + [obj.material, obj.weight].filter(Boolean).join(' · ');
     return obj;
   };
   Finder.prototype.mailto = function (obj) {
