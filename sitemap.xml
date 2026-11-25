@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://kmtglobalco.com/</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
@@ -20,7 +20,7 @@
   </url>
   <url>
     <loc>https://kmtglobalco.com/index-en.html</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
@@ -28,10 +28,14 @@
   </url>
   <url>
     <loc>https://kmtglobalco.com/index-jp.html</loc>
-    <lastmod>2026-10-28</lastmod>
+    <lastmod>2026-11-26</lastmod>
     <xhtml:link rel="alternate" hreflang="ko" href="https://kmtglobalco.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://kmtglobalco.com/index-en.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://kmtglobalco.com/index-jp.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://kmtglobalco.com/index-en.html"/>
+  </url>
+  <url>
+    <loc>https://kmtglobalco.com/machine-tool-castings.html</loc>
+    <lastmod>2026-11-26</lastmod>
   </url>
 </urlset>

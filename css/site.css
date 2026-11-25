@@ -243,6 +243,13 @@ a.brand__tag:hover{color:var(--ink);border-color:var(--ink-2)}
 .hero__fig{grid-column:8/-1;grid-row:2/span 2;align-self:start;margin-top:10px}
 .hero__fig .drawing__paper{padding:22px 20px 14px}
 
+.hero__role{margin-top:14px;padding-left:12px;border-left:2px solid var(--blue);font-size:15px;line-height:1.6;color:var(--ink);max-width:36em}
+.proof{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.proof li{padding:16px 14px 16px 0;display:flex;flex-direction:column;gap:6px}
+.proof li+li{padding-left:14px;border-left:1px solid var(--line)}
+.proof b{font:600 20px/1.2 var(--font-sans);color:var(--navy);letter-spacing:-.01em}
+.proof span{font-size:13px;line-height:1.45;color:var(--muted)}
+@media (max-width:959px){.proof{grid-template-columns:repeat(2,minmax(0,1fr))}.proof li{padding:12px 10px 12px 0;border-top:1px solid var(--line)}.proof li+li{padding-left:0;border-left:0}.proof li:nth-child(even){padding-left:12px;border-left:1px solid var(--line)}.proof li:nth-child(-n+2){border-top:0}.proof li:last-child{grid-column:1/-1;padding-left:0;border-left:0}.proof b{font-size:17px}}
 .caps{margin-top:64px;border-top:1.5px solid var(--ink)}
 .caps__title{margin:14px 0 0;font:500 12px/1.4 var(--font-label);letter-spacing:.04em;color:var(--ink-2)}
 .caps__list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:14px}
