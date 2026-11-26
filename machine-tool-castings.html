@@ -98,6 +98,25 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--muted);border-top:1px soli
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"Machine-tool castings from Korea","url":"https://kmtglobalco.com/machine-tool-castings.html","inLanguage":"en","publisher":{"@type":"Organization","name":"KMT Global","url":"https://kmtglobalco.com/","email":"sales@kmtglobalco.com"}}
 </script>
+<!-- Google Analytics 4 (G-6VCP7TGR5Z) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6VCP7TGR5Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6VCP7TGR5Z');
+  /* contact clicks: email · LINE · phone */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+    var h = a.getAttribute('href') || '', t = null;
+    if (/^mailto:/i.test(h) || /mail\.google\.com\/mail|outlook\.office\.com\/mail/i.test(h)) t = 'contact_email';
+    else if (/line\.me\//i.test(h)) t = 'contact_line';
+    else if (/^tel:/i.test(h)) t = 'contact_phone';
+    if (t) gtag('event', t, { link_url: h.split('?')[0], page_location: location.href });
+  }, true);
+  /* inquiry form submit */
+  document.addEventListener('submit', function (e) { if (e.target && e.target.id === 'cf') gtag('event', 'contact_form'); }, true);
+</script>
 </head>
 <body>
 <header class="hdr">
