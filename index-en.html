@@ -147,11 +147,26 @@
   function btn(label, primary, v) {
     var x = document.createElement('button'); x.type = 'button'; x.textContent = label;
     x.style.cssText = 'cursor:pointer;padding:8px 14px;border-radius:6px;font:600 14px system-ui,sans-serif;border:1px solid #1F4FD1;' + (primary ? 'background:#1F4FD1;color:#fff' : 'background:#fff;color:#1F4FD1');
-    x.onclick = function () { try { localStorage.setItem('kmtg_consent', v); } catch (e) {} if (v === 'granted' && window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' }); b.remove(); };
+    x.onclick = function () { try { localStorage.setItem('kmtg_consent', v); } catch (e) {} if (v === 'granted') { if (window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' }); if (window.__kmtgLoadClarity) window.__kmtgLoadClarity(); } b.remove(); };
     return x;
   }
   b.appendChild(p); b.appendChild(btn(T[1], true, 'granted')); b.appendChild(btn(T[2], false, 'denied'));
   (document.body ? Promise.resolve() : new Promise(function (r) { document.addEventListener('DOMContentLoaded', r); })).then(function () { document.body.appendChild(b); });
+})();
+</script>
+<script>
+/* Microsoft Clarity (zjrx6nyyov) — in Europe time zones only after cookie consent */
+window.__kmtgLoadClarity = function () {
+  if (window.__kmtgClarity) return; window.__kmtgClarity = 1;
+  (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","zjrx6nyyov");
+};
+(function () {
+  var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  var saved = null; try { saved = localStorage.getItem('kmtg_consent'); } catch (e) {}
+  var eu = /^(Europe|Atlantic\/(Reykjavik|Canary|Madeira|Faroe))/.test(tz);
+  if (!eu || saved === 'granted') window.__kmtgLoadClarity();
 })();
 </script>
 </head>
