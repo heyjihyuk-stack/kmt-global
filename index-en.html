@@ -112,6 +112,9 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  /* consent: EEA/UK/CH default denied until the visitor accepts */
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','GB','CH'] });
+  try { if (localStorage.getItem('kmtg_consent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch (e) {}
   gtag('js', new Date());
   gtag('config', 'G-6VCP7TGR5Z');
   /* contact clicks: email · LINE · phone */
@@ -125,6 +128,31 @@
   }, true);
   /* inquiry form submit */
   document.addEventListener('submit', function (e) { if (e.target && e.target.id === 'cf') gtag('event', 'contact_form'); }, true);
+</script>
+<script>
+/* cookie notice for visitors in Europe (time zone Europe/*) */
+(function () {
+  var tz = ''; try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  var saved = null; try { saved = localStorage.getItem('kmtg_consent'); } catch (e) {}
+  if (!/^(Europe|Atlantic\/(Reykjavik|Canary|Madeira|Faroe))/.test(tz) || saved) return;
+  var lang = (document.documentElement.lang || 'en').slice(0, 2);
+  var T = { ko: ['방문 통계를 위해 Google Analytics 쿠키를 사용합니다. 동의하시겠습니까?', '동의', '거부'],
+            ja: ['アクセス解析のため Google Analytics の Cookie を使用します。同意しますか。', '同意する', '拒否する'],
+            en: ['We use Google Analytics cookies to count visits. Do you accept?', 'Accept', 'Decline'] }[lang] || null;
+  T = T || ['We use Google Analytics cookies to count visits. Do you accept?', 'Accept', 'Decline'];
+  var b = document.createElement('div');
+  b.setAttribute('role', 'region'); b.setAttribute('aria-label', 'Cookie notice');
+  b.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;padding:14px 16px;background:#fff;color:#0F1C2E;border:1px solid #c9cdd3;border-radius:8px;box-shadow:0 6px 24px rgba(0,0,0,.15);font:14px/1.5 system-ui,sans-serif;display:flex;flex-wrap:wrap;gap:10px;align-items:center';
+  var p = document.createElement('p'); p.style.cssText = 'margin:0;flex:1 1 260px'; p.textContent = T[0];
+  function btn(label, primary, v) {
+    var x = document.createElement('button'); x.type = 'button'; x.textContent = label;
+    x.style.cssText = 'cursor:pointer;padding:8px 14px;border-radius:6px;font:600 14px system-ui,sans-serif;border:1px solid #1F4FD1;' + (primary ? 'background:#1F4FD1;color:#fff' : 'background:#fff;color:#1F4FD1');
+    x.onclick = function () { try { localStorage.setItem('kmtg_consent', v); } catch (e) {} if (v === 'granted' && window.gtag) gtag('consent', 'update', { analytics_storage: 'granted' }); b.remove(); };
+    return x;
+  }
+  b.appendChild(p); b.appendChild(btn(T[1], true, 'granted')); b.appendChild(btn(T[2], false, 'denied'));
+  (document.body ? Promise.resolve() : new Promise(function (r) { document.addEventListener('DOMContentLoaded', r); })).then(function () { document.body.appendChild(b); });
+})();
 </script>
 </head>
 <body id="top">
