@@ -14,7 +14,9 @@
 - Furan no-bake casting (small to large, single pieces and low-to-mid volumes) at affiliate KOREA METAL TEC, Goryeong plant: gray iron up to 10 t, ductile iron up to 5 t per piece, about 1,000 t/month; ISO 9001:2015 held by KOREA METAL TEC CO., LTD. (certificate Q240233, certification body GMSCS — GMS Certification Services, KAB-accredited KAB-QC-83; scope "Manufacture of Casting Product for Machine Tool, Ship, Industrial Machinery"; valid 2026-07-13 to 2029-07-17). KMT Global itself holds no certification.
 - Automatic molding lines (high-volume small parts: automotive and driveline, agricultural, construction equipment, rail track, engine parts) at partner foundries, including an IATF 16949-certified foundry (certificate held by that foundry). The production site for an order (name and location) is disclosed after an NDA, within a scope agreed with that site in advance.
 - Machining by machining partners registered with KOREA METAL TEC in the Changwon, Daegu and Busan areas (patterns are made in-house at KOREA METAL TEC); KMT Global reviews process plans and measurement results
-- Not offered at present: insert casting (cast-in inserts)
+- In-house at KOREA METAL TEC: pattern making, casting, fettling, shot blasting, painting
+- Gray iron from FC150 (GC150) upward; FC100 not offered
+- Not offered at present: insert casting (cast-in inserts) — no production record; threads such as lifting-bolt holes are usually machined directly instead
 - Materials: gray iron (KS GC / JIS FC) and ductile iron (KS GCD / JIS FCD); equivalents to ASTM / EN are approximate and confirmed per drawing
 
 ## Typical parts
